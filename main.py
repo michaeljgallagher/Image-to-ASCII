@@ -61,19 +61,19 @@ def convert_to_string(matrix):
 
 if __name__ == '__main__':
 
-    with Image.open('test.jpg') as f:
+    with Image.open('test.jpg') as img:
         # Scale-down original image:
-        resize_image(f, 150)
+        resize_image(img, 150)
 
         # Convert to greyscale:
-        f = f.convert(mode="L")
+        img = img.convert(mode="L")
 
         # Convert to ascii_matrix
-        matrix = convert_to_ascii_matrix(f, PALETTE_SHORT)
+        matrix = convert_to_ascii_matrix(img, PALETTE_SHORT)
 
-        # Convert to string for output
-        output = convert_to_string(matrix)
+    # Convert to string for output
+    output = convert_to_string(matrix)
 
-        # Write to output file
-        with open('output.txt', 'w') as file:
-            file.write(output)
+    # Write to output file
+    with open('output.txt', 'w') as file:
+        file.write(output)
