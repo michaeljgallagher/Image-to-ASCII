@@ -1,6 +1,5 @@
 from PIL import Image
 import numpy as np
-import math
 
 
 # Greyscale character ramp from http://paulbourke.net/dataformats/asciiart/
