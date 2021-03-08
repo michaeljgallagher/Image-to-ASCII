@@ -3,8 +3,8 @@ import numpy as np
 
 
 # Greyscale character ramp from http://paulbourke.net/dataformats/asciiart/
-PALLETTE_LONG = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
-PALLETTE_SHORT = "@%#*+=-:. "
+PALETTE_LONG = "$@B%8&WM#*oahkbdpqwmZO0QLCJUYXzcvunxrjft/\|()1{}[]?-_+~<>i!lI;:,\"^`'. "
+PALETTE_SHORT = "@%#*+=-:. "
 
 
 def resize_image(image, max_dimension):
@@ -69,7 +69,7 @@ if __name__ == '__main__':
         f = f.convert(mode="L")
 
         # Convert to ascii_matrix
-        matrix = convert_to_ascii_matrix(f, PALLETTE_SHORT)
+        matrix = convert_to_ascii_matrix(f, PALETTE_SHORT)
 
         # Convert to string for output
         output = convert_to_string(matrix)
