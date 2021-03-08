@@ -59,8 +59,7 @@ def convert_to_string(matrix):
     return '\n'.join(res)
 
 
-if __name__ == '__main__':
-
+def main():
     with Image.open('test.jpg') as img:
         # Scale-down original image:
         resize_image(img, 150)
@@ -77,3 +76,7 @@ if __name__ == '__main__':
     # Write to output file
     with open('output.txt', 'w') as file:
         file.write(output)
+
+
+if __name__ == '__main__':
+    main()
