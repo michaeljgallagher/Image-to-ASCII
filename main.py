@@ -1,5 +1,6 @@
 from PIL import Image
 import numpy as np
+import argparse
 
 
 # Greyscale character ramp from http://paulbourke.net/dataformats/asciiart/
@@ -60,22 +61,39 @@ def convert_to_string(matrix):
 
 
 def main():
-    with Image.open('test.jpg') as img:
+    # Parse arguments
+    parser = argparse.ArgumentParser(description='Convert image files into ASCII art')
+    parser.add_argument('image', type=str, action='store', default=None, help='Full name of image. Image\
+        must be contained inside the same folder as this script.')
+    parser.add_argument('-l', '--long', action='store_true', help='Use a 70 character mapping rather\
+        than a 10 character mapping.')
+    parser.add_argument('-o', '--output', type=str, action='store', default='output.txt', help='Name of output\
+        file. Defaults to "output.txt".')
+    parser.add_argument('-p', '--pixels', type=int, action='store', default=150, help='Specify the the max size\
+        in pixels that a side of the image can be. The original aspect ratio is maintained. Defaults to 150px')
+    args = parser.parse_args()
+
+    palette = PALETTE_LONG if args.long else PALETTE_SHORT
+    if not args.output.endswith('.txt'):
+        args.output += '.txt'
+
+    # Open image in context manager
+    with Image.open(args.image) as img:
         # Scale-down original image:
-        resize_image(img, 150)
+        resize_image(img, args.pixels)
 
         # Convert to greyscale:
         img = img.convert(mode="L")
 
         # Convert to ascii_matrix
-        matrix = convert_to_ascii_matrix(img, PALETTE_SHORT)
+        matrix = convert_to_ascii_matrix(img, palette)
 
     # Convert to string for output
-    output = convert_to_string(matrix)
+    out = convert_to_string(matrix)
 
     # Write to output file
-    with open('output.txt', 'w') as file:
-        file.write(output)
+    with open(args.output, 'w') as file:
+        file.write(out)
 
 
 if __name__ == '__main__':
