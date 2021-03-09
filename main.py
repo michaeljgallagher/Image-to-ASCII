@@ -65,6 +65,7 @@ def main():
     parser = argparse.ArgumentParser(description='Convert image files into ASCII art')
     parser.add_argument('image', type=str, action='store', default=None, help='Full name of image. Image\
         must be contained inside the same folder as this script.')
+    parser.add_argument('-i', '--invert', action='store_true', help='Invert the output')
     parser.add_argument('-l', '--long', action='store_true', help='Use a 70 character mapping rather\
         than a 10 character mapping.')
     parser.add_argument('-o', '--output', type=str, action='store', default='output.txt', help='Name of output\
@@ -74,6 +75,7 @@ def main():
     args = parser.parse_args()
 
     palette = PALETTE_LONG if args.long else PALETTE_SHORT
+    if args.invert: palette = palette[::-1]
     if not args.output.endswith('.txt'):
         args.output += '.txt'
 
